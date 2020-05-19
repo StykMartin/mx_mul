@@ -15,9 +15,11 @@ class Matrix(object):
         if self.width != other.height:
             raise ValueError("Dimensions doesn't match.")
 
-        result = [[(sum([row_element * column_element for row_element, column_element in zip(row, column)]))
-                   for column in zip(*other.matrix)]
-                  for row in self.matrix]
+        result = [
+            [(sum([row_element * column_element
+                   for row_element, column_element in zip(row, column)]))
+             for column in zip(*other.matrix)]
+            for row in self.matrix]
         return Matrix(result)
 
     def __str__(self) -> str:
@@ -79,7 +81,9 @@ def _get_matrix_row(width: int) -> List[Union[float, int]]:
     return result
 
 
-def get_matrix_values(name: str, size: Tuple[int, int]) -> List[List[Union[int, float]]]:
+def get_matrix_values(name: str,
+                      size: Tuple[int, int]
+                      ) -> List[List[Union[int, float]]]:
     print(f'Matrix {name} values:')
     width, height = size
     values = [_get_matrix_row(width) for _ in range(height)]
@@ -90,7 +94,10 @@ def get_matrix_values(name: str, size: Tuple[int, int]) -> List[List[Union[int, 
 def main() -> None:
     sizes = (get_matrix_size('A'), get_matrix_size('B'))
 
-    print(f"Result:\n{Matrix(get_matrix_values('A', sizes[0])) @ Matrix(get_matrix_values('B', sizes[1]))}")
+    result: Matrix = (Matrix(get_matrix_values('A', sizes[0]))
+                      @ Matrix(get_matrix_values('B', sizes[1])))
+
+    print(f"Result:\n{result}")
 
 
 if __name__ == '__main__':
