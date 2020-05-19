@@ -49,19 +49,18 @@ def get_matrix_size(name: str) -> Tuple[int, int]:
     print(f'Matrix {name}')
     width: int = _get_matrix_dimension('width: ')
     height: int = _get_matrix_dimension('height: ')
+    _validate_input_matrix_size(width, height)
     print()
     return width, height
 
 
-def validate_input_matrix_size(sizes: Tuple[Tuple[int, int], ...]) -> None:
+def _validate_input_matrix_size(width: int, height: int) -> None:
     """
     Make sure user provided valid size for matrix.
     Smallest matrix can be 1x1
     """
-    for size in sizes:
-        width, height = size
-        if width < 1 or height < 1:
-            raise ValueError("I can't help you with this magic matrix.")
+    if width < 1 or height < 1:
+        raise ValueError("I can't help you with this magic matrix.")
 
 
 def _get_matrix_row(width: int) -> List[float]:
@@ -90,7 +89,6 @@ def get_matrix_values(name: str, size: Tuple[int, int]) -> List[List[Union[int, 
 
 def main() -> None:
     sizes = (get_matrix_size('A'), get_matrix_size('B'))
-    validate_input_matrix_size(sizes)
 
     print(f"Result:\n{Matrix(get_matrix_values('A', sizes[0])) @ Matrix(get_matrix_values('B', sizes[1]))}")
 

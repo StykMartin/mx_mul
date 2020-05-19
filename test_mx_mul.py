@@ -6,9 +6,9 @@ import pytest
 from mx_mul import (
     _cast_int,
     _cast_float,
+    _validate_input_matrix_size,
     get_matrix_size,
     Matrix,
-    validate_input_matrix_size,
     get_matrix_values
 )
 
@@ -83,16 +83,15 @@ class TestGetMatrixValues(object):
                 get_matrix_values('A', (3, 1))
 
 
-@pytest.mark.parametrize("test_input, get_exp, expected", [(([(1, 1), (1, 1)]), False, None),
-                                                           (([(0, 1), (1, 1)]), True, ValueError),
-                                                           (([(1, 1), (1, 0)]), True, ValueError),
-                                                           (([(10, 42), (2311, 9)]), False, None)])
+@pytest.mark.parametrize("test_input, get_exp, expected", [((1, 1), False, None),
+                                                           ((0, 1), True, ValueError),
+                                                           ((9, 0), True, ValueError)])
 def test_validate_input_matrix_size(test_input, get_exp, expected):
     if not get_exp:
-        assert validate_input_matrix_size(test_input) == expected
+        assert _validate_input_matrix_size(*test_input) == expected
     else:
         with pytest.raises(expected):
-            validate_input_matrix_size(test_input)
+            _validate_input_matrix_size(*test_input)
 
 
 def test_get_matrix_size(capsys):
