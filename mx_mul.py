@@ -63,13 +63,13 @@ def _validate_input_matrix_size(width: int, height: int) -> None:
         raise ValueError("I can't help you with this magic matrix.")
 
 
-def _get_matrix_row(width: int) -> List[float]:
-    items = input().split(' ')
+def _get_matrix_row(width: int) -> List[Union[float, int]]:
+    items: List[str] = input().split(' ')
 
     # Make sure user provided same amount of numbers as it is intended
     if len(items) != width:
         raise ValueError("Incorrect number of items in matrix")
-    result = []
+    result: List[Union[float, int]] = []
     for item in items:
         item = _cast_float(item)
         if item.is_integer():
