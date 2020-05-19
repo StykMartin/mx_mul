@@ -28,7 +28,7 @@ def _cast_int(input_value: Any) -> int:
     try:
         input_value: int = int(input_value)
     except ValueError:
-        raise ValueError(f"Input value has to be integer.")
+        raise ValueError("Input value has to be integer.")
     return input_value
 
 
@@ -68,7 +68,7 @@ def _get_matrix_row(width: int) -> List[float]:
 
     # Make sure user provided same amount of numbers as it is intended
     if len(items) != width:
-        raise ValueError(f"Incorrect number of items in matrix")
+        raise ValueError("Incorrect number of items in matrix")
     result = []
     for item in items:
         item = _cast_float(item)
